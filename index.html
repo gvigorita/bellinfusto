@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menù Ristorante</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+        }
+        
+        .error {
+            background: #ff6b6b;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: white;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        
+        .product {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+        
+        .product-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+        }
+        
+        .product-symbols {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        .symbol {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.75em;
+        }
+        
+        .symbol.veg {
+            background: #4CAF50;
+        }
+        
+        .symbol.vegan {
+            background: #8BC34A;
+        }
+        
+        .symbol.spicy {
+            background: #FF5722;
+        }
+        
+        .product-description {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        
+        .product-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 12px;
+            margin-top: auto;
+        }
+        
+        .price-small {
+            color: #667eea;
+        }
+        
+        .price-large {
+            color: #764ba2;
+            margin-left: 8px;
+        }
+        
+        .price-label {
+            font-size: 0.7em;
+            color: #999;
+            display: block;
+            margin-top: 4px;
+        }
+        
+        .allergens {
+            font-size: 0.85em;
+            color: #999;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+        
+        .allergen-label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .allergen-codes {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .section-title {
+                font-size: 1.4em;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍽️ Menù</h1>
+        <div id="menu" class="loading">Caricamento menù...</div>
+    </div>
+    
+    <script>
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVCdwqQen7TOE82kG09jdHmlAXD_WlFry69VYLxPzR0PYuSy62SQqpk490oQhv7C7TvwS0Ho-AxfGj/pub?gid=0&single=true&output=csv';
+        
+        const allergenMap = {
+            '1': 'Glutine',
+            '2': 'Crostacei',
+            '3': 'Uova',
+            '4': 'Pesce',
+            '5': 'Arachidi',
+            '6': 'Frutta a guscio',
+            '7': 'Latte',
+            '8': 'Sedano',
+            '9': 'Mostarda',
+            '10': 'Sesamo',
+            '11': 'Molluschi',
+            '12': 'Soia',
+            '13': 'Solfiti'
+        };
+        
+        const sectionOrder = [
+            'Sfizi e gastronomia',
+            'Hamburger',
+            'Pinse',
+            'Dolci',
+            'Bibite',
+            'Birre alla spina',
+            'Birre in bottiglia'
+        ];
+        
+        function parseCSV(text) {
+            const lines = text.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+            const rows = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                
+                const cells = [];
+                let current = '';
+                let inQuotes = false;
+                
+                for (let j = 0; j < lines[i].length; j++) {
+                    const char = lines[i][j];
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        cells.push(current.trim().replace(/^"|"$/g, ''));
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                cells.push(current.trim().replace(/^"|"$/g, ''));
+                rows.push(cells);
+            }
+            
+            return { headers, rows };
+        }
+        
+        async function loadMenu() {
+            try {
+                const response = await fetch(CSV_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`Errore HTTP: ${response.status}`);
+                }
+                
+                const csvText = await response.text();
+                const { headers, rows } = parseCSV(csvText);
+                
+                if (!rows || rows.length === 0) {
+                    throw new Error('Nessun dato trovato nel foglio');
+                }
+                
+                const sezioneIdx = headers.indexOf('Sezione');
+                const nomeIdx = headers.indexOf('Nome');
+                const descrizioneIdx = headers.indexOf('Descrizione');
+                const prezzoPiccoloIdx = headers.indexOf('Prezzo piccolo');
+                const prezzoGrandeIdx = headers.indexOf('Prezzo grande');
+                const allergeniIdx = headers.indexOf('Allergeni');
+                const vegIdx = headers.indexOf('Veg');
+                const veganIdx = headers.indexOf('Vegan');
+                const piccianteIdx = headers.indexOf('Piccante');
+                
+                const sections = {};
+                sectionOrder.forEach(sec => {
+                    sections[sec] = [];
+                });
+                
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    if (!row[sezioneIdx]) continue;
+                    
+                    const product = {
+                        sezione: row[sezioneIdx],
+                        nome: row[nomeIdx] || 'Senza nome',
+                        descrizione: row[descrizioneIdx] || '',
+                        prezzoPiccolo: parseFloat(row[prezzoPiccoloIdx]) || 0,
+                        prezzoGrande: row[prezzoGrandeIdx] && row[prezzoGrandeIdx].trim() ? parseFloat(row[prezzoGrandeIdx]) : null,
+                        allergeni: row[allergeniIdx] && row[allergeniIdx].trim() ? String(row[allergeniIdx]).split(',').map(a => a.trim()) : [],
+                        veg: parseInt(row[vegIdx]) === 1,
+                        vegan: parseInt(row[veganIdx]) === 1,
+                        spicy: parseInt(row[piccianteIdx]) === 1
+                    };
+                    
+                    if (sections[product.sezione]) {
+                        sections[product.sezione].push(product);
+                    }
+                }
+                
+                renderMenu(sections);
+                
+            } catch (error) {
+                document.getElementById('menu').innerHTML = `<div class="error">Errore nel caricamento: ${error.message}</div>`;
+                console.error(error);
+            }
+        }
+        
+        function renderMenu(sections) {
+            let html = '';
+            
+            sectionOrder.forEach(sectionName => {
+                const products = sections[sectionName];
+                if (!products || products.length === 0) return;
+                
+                html += `<div class="section">`;
+                html += `<h2 class="section-title">${sectionName}</h2>`;
+                html += `<div class="products-grid">`;
+                
+                products.forEach(product => {
+                    html += renderProduct(product);
+                });
+                
+                html += `</div></div>`;
+            });
+            
+            document.getElementById('menu').innerHTML = html;
+        }
+        
+        function renderProduct(product) {
+            let priceHtml = `<span class="price-small">€${product.prezzoPiccolo.toFixed(2)}</span>`;
+            let priceLabel = '';
+            
+            if (product.prezzoGrande !== null) {
+                priceHtml += ` / <span class="price-large">€${product.prezzoGrande.toFixed(2)}</span>`;
+                priceLabel = `<span class="price-label">Piccolo / Grande</span>`;
+            }
+            
+            let symbolsHtml = '';
+            if (product.veg && !product.vegan) {
+                symbolsHtml += '<span class="symbol veg" title="Vegetariano">V</span>';
+            }
+            if (product.vegan) {
+                symbolsHtml += '<span class="symbol vegan" title="Vegano">VV</span>';
+            }
+            if (product.spicy) {
+                symbolsHtml += '<span class="symbol spicy" title="Piccante">🌶</span>';
+            }
+            
+            let allergensHtml = '';
+            if (product.allergeni && product.allergeni.length > 0) {
+                const allergenNames = product.allergeni.map(code => allergenMap[code] || code).join(', ');
+                allergensHtml = `<div class="allergens"><span class="allergen-label">Allergeni:</span> <span class="allergen-codes">${allergenNames}</span></div>`;
+            }
+            
+            return `
+                <div class="product">
+                    <div class="product-header">
+                        <span class="product-name">${product.nome}</span>
+                        <div class="product-symbols">${symbolsHtml}</div>
+                    </div>
+                    <p class="product-description">${product.descrizione}</p>
+                    <div class="product-price">
+                        ${priceHtml}
+                        ${priceLabel}
+                    </div>
+                    ${allergensHtml}
+                </div>
+            `;
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadMenu);
+    </script>
+</body>
+</html>
