@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="it">
+sectionName<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -193,11 +192,11 @@
     <div class="container">
             <h1><img src="https://cdn.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_802/https://www.bellinfusto.it/wp-content/uploads/2016/08/logo_b.png" alt="Bell'Infusto" style="height: 80px; vertical-align: middle; margin-right: 15px;"> Bellinfusto</h1>
                     <h2 style="text-align: center; color: #D4AF37; font-size: 1.8em; margin-top: 10px;">Menù</h2>
-                    <p style="text-align: center; color: #D4AF37; font-size: 1.1em; margin-top: 15px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">Pub indipendente nel cuore di Martina Franca. Birre artigianali selezionate, hamburger con carne biologica locale, pinse romane a lunga maturazione e fritti fatti in casa. Un'esperienza autentica dove la qualità incontra la passione.</p><div id="menu" class="loading">Caricamento menù...</div>
+                    <p style="text-align: center; color: #D4AF37; font-size: 1.1em; margin-top: 15px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">Pub indipendente nel cuore di Ostuni. Birre artigianali selezionate, hamburger con carne biologica locale, pinse romane a lunga maturazione e fritti fatti in casa. Un'esperienza autentica dove la qualità incontra la passione.</p><div id="menu" class="loading">Caricamento menù...</div>
     </div>
     
     <script>
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVCdwqQen7TOE82kG09jdHmlAXD_WlFry69VYLxPzR0PYuSy62SQqpk490oQhv7C7TvwS0Ho-AxfGj/pub?gid=0&single=true&output=csv';
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVCdwqQen7TOE82kG09jdHmlAXD_WlFry69VYLxPzR0PYuSy62SQqpk490oQhv7C7TvwS0Ho-AxfGj/pub?gid=0&single=true&o margin-bottom: 40px;utput=csv';
         
         const allergenMap = {
             '1': 'Glutine',
@@ -319,6 +318,11 @@
             
             sectionOrder.forEach(sectionName => {
                 const products = sections[sectionName];
+
+                    // Funzione per ottenere l'icona in base alla sezione
+                    function getSectionIcon(sectionName) {
+                const icons = {
+        
                 if (!products || products.length === 0) return;
                 
                 html += `<div class="section">`;
