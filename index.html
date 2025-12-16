@@ -265,7 +265,7 @@
         }
         
         .allergens {
-            font-size: 0.48em;
+            font-size: 0.58em;
             color: #888;
             padding-top: 10px;
             border-top: 1px solid #e8e8e8;
@@ -344,6 +344,10 @@
         <p style="text-align: center; color: #D4AF37; font-size: 1.1em; margin: 15px auto; max-width: 700px; line-height: 1.6;">Pub indipendente nel cuore di Ostuni. Birre artigianali selezionate, hamburger con carne biologica locale, pinse romane a lunga maturazione e fritti fatti in casa. Un'esperienza autentica dove la qualità incontra la passione.</p>
         <div id="menu" class="loading">Caricamento menù...</div>
     </div>
+    <footer style="background: rgba(0,0,0,0.8); color: #C9A961; text-align: center; padding: 30px 20px; margin-top: 60px; font-size: 0.9em; line-height: 1.8; border-top: 2px solid #D4AF37;">
+       <p style="margin: 5px 0; font-weight: 500;">Coperto 1,5€</p>
+       <p style="margin: 5px 0; font-size: 0.85em;">* prodotto surgelato all'origine / prodotto da noi e abbattuto</p>
+    </footer>
     
     <script>
         const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVCdwqQen7TOE82kG09jdHmlAXD_WlFry69VYLxPzR0PYuSy62SQqpk490oQhv7C7TvwS0Ho-AxfGj/pub?gid=0&single=true&output=csv';
@@ -508,10 +512,10 @@
             
             let symbolsHtml = '';
             if (product.veg && !product.vegan) {
-                symbolsHtml += '<span class="symbol veg" title="Vegetariano">V</span>';
+                symbolsHtml += '<span class="symbol veg" title="Vegetariano">🌱</span>';
             }
             if (product.vegan) {
-                symbolsHtml += '<span class="symbol vegan" title="Vegano">VV</span>';
+                symbolsHtml += '<span class="symbol vegan" title="Vegano">🍃</span>';
             }
             if (product.spicy) {
                 symbolsHtml += '<span class="symbol spicy" title="Piccante">🌶</span>';
