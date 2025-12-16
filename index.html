@@ -518,7 +518,7 @@
                 if (!products || products.length === 0) return;
                 
                 html += `<div class="section">`;
-        html += `<h2 class="section-title">${getSectionIcon(sectionName)}${sectionName}</h2>`;                html += `<div class="products-grid">`;
+                html += `<h2 class="section-title">${getSectionIcon(sectionName)}${sectionName}</h2>`;                html += `<div class="products-grid">`;
                 
                 products.forEach(product => {
                     html += renderProduct(product);
@@ -528,7 +528,19 @@
             });
             
             document.getElementById('menu').innerHTML = html;
-        }
+
+               // Aggiungi listener per accordion
+               const sectionTitles = document.querySelectorAll('.section-title');
+               sectionTitles.forEach(title => {
+                        title.addEventListener('click', function() {
+                                   this.classList.toggle('active');
+                                   const grid = this.nextElementSibling;
+                                   if (grid && grid.classList.contains('products-grid')) {
+                                                grid.classList.toggle('hidden');
+                                              }
+                                 });
+                      });
+            }
 
            // Aggiungi listener per accordion
            const sectionTitles = document.querySelectorAll('.section-title');
@@ -538,7 +550,7 @@
                                const grid = this.nextElementSibling;
                                if (grid && grid.classList.contains('products-grid')) {
                                         grid.classList.toggle('hidden');
-                                          }
+                                                                             }
                              });
                   });
 
