@@ -530,12 +530,8 @@
                 
                 products.forEach(product => {
                     html += renderProduct(product);
-   if (grid) {             });
-                
-                html += `</div></div>`;
-            });
-            
-            document.getElementById('menu').innerHTML = html;
+                    html += `</div></div>`;
+                });
 
                // Aggiungi listener per accordion
                const sectionTitles = document.querySelectorAll('.section-title');
@@ -543,11 +539,11 @@
                         title.addEventListener('click', function() {
                                    this.classList.toggle('active');
                                    const grid = this.parentElement.querySelector('.products-grid');
-                                    if (grid) {
-                                        grid.classList.toggle('hidden');
-                                        }
+                                    grid.classList.toggle('hidden');
                                  });
                       });
+            
+                document.getElementById('menu').innerHTML = html;
             }
         
         // Per default, tutte le sezioni sono aperte (puoi rimuovere questa riga per averle chiuse)
