@@ -530,24 +530,28 @@
                 
                 products.forEach(product => {
                     html += renderProduct(product);
-                    html += `</div></div>`;
                 });
+                
+                html += `</div></div>`;
+            });
+            
+            document.getElementById('menu').innerHTML = html;
 
                // Aggiungi listener per accordion
                const sectionTitles = document.querySelectorAll('.section-title');
                sectionTitles.forEach(title => {
                         title.addEventListener('click', function() {
                                    this.classList.toggle('active');
-                                   const grid = this.parentElement.querySelector('.products-grid');
-                                    grid.classList.toggle('hidden');
+                                   const grid = this.nextElementSibling;
+                                   if (grid && grid.classList.contains('products-grid')) {
+                                                grid.classList.toggle('hidden');
+                                              }
                                  });
                       });
-            
-                document.getElementById('menu').innerHTML = html;
             }
         
         // Per default, tutte le sezioni sono aperte (puoi rimuovere questa riga per averle chiuse)
-        //document.querySelectorAll('.products-grid').forEach(grid => grid.classList.add('hidden'));
+        //sectionTitles.forEach(title => title.classList.add('active'));
         
         function renderProduct(product) {
             let priceHtml = `<span class="price-small">€${product.prezzoPiccolo.toFixed(2)}</span>`;
