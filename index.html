@@ -283,11 +283,11 @@
         }
         
         .price-small {
-            color: #D4AF37;
+            color: #2d2d2d;
         }
         
         .price-large {
-            color: #C9A961;
+            color: #2d2d2d;
             margin-left: 10px;
         }
         
@@ -549,7 +549,7 @@
                                  });
                       });
             }
-
+        /*
            // Aggiungi listener per accordion
            const sectionTitles = document.querySelectorAll('.section-title');
            sectionTitles.forEach(title => {
@@ -561,9 +561,9 @@
                                }
                              });
                   });
-
+        */
         // Per default, tutte le sezioni sono aperte (puoi rimuovere questa riga per averle chiuse)
-        sectionTitles.forEach(title => title.classList.add('active'));
+        //sectionTitles.forEach(title => title.classList.add('active'));
         
         function renderProduct(product) {
             let priceHtml = `<span class="price-small">€${product.prezzoPiccolo.toFixed(2)}</span>`;
