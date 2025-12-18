@@ -307,7 +307,7 @@
         }
         
         .allergen-codes {
-            color: #e74c3c;
+            color: #999*;
             font-weight: 600;
         }
         
@@ -466,7 +466,7 @@
                         veg: parseInt(row[vegIdx]) === 1,
                         vegan: parseInt(row[veganIdx]) === 1,
                         spicy: parseInt(row[piccianteIdx]) === 1,
-                         foto: row[fotoIdx] && row[fotoIdx].trim() ? row[fotoIdx].trim() : null
+                        foto: row[fotoIdx] && row[fotoIdx].trim() ? row[fotoIdx].trim() : null
                     };
                     
                     if (sections[product.sezione]) {
@@ -484,22 +484,21 @@
         
         function renderMenu(sections) {
             let html = '';
-
-
+            
                 // Funzione per ottenere l'icona della sezione
                 function getSectionIcon(name) {
-                            const icons = {
-                                'Sfizi e gastronomia': '🍿', 
-                                'Hamburger': '🍔', 
-                                'Pinse': '🍕', 
-                                'Dolci': '🍰', 
-                                'Bibite': '🥛',
-                                'Birre alla spina': '🍺',
-                                'Birre in bottiglia': '🍾'
-                            };
-                            return icons[name] ? icons[name] + ' ' : '';
-                        }
-            sectionOrder.forEach(sectionName => {
+                    const icons = {
+                        'Sfizi e gastronomia': '🍿', 
+                        'Hamburger': '🍔', 
+                        'Pinse': '🍕', 
+                        'Dolci': '🍰', 
+                        'Bibite': '🥛',
+                        'Birre alla spina': '🍺',
+                        'Birre in bottiglia': '🍾'
+                    };
+                    return icons[name] ? icons[name] + ' ' : '';
+                }
+                sectionOrder.forEach(sectionName => {
                 const products = sections[sectionName];
                 if (!products || products.length === 0) return;
                 
@@ -549,7 +548,7 @@
             
             if (product.prezzoGrande !== null) {
                 priceHtml += ` / <span class="price-large">€${product.prezzoGrande.toFixed(2)}</span>`;
-                priceLabel = `<span class="price-label">Piccolo / Grande</span>`;
+                priceLabel = `<span class="price-label">100 g / 200 g</span>`;
             }
             
             let symbolsHtml = '';
