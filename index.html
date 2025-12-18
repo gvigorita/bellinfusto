@@ -559,7 +559,7 @@
                                const grid = this.nextElementSibling;
                                if (grid && grid.classList.contains('products-grid')) {
                                         grid.classList.toggle('hidden');
-                                                                             }
+                               }
                              });
                   });
 
@@ -586,11 +586,11 @@
                 symbolsHtml += '<span class="symbol spicy" title="Piccante">🌶</span>';
             }
             
-            let allergensHtml = '';
-            if (product.allergeni && product.allergeni.length > 0) {
-                const allergenNames = product.allergeni.map(code => allergenMap[code] || code).join(', ');
-                allergensHtml = `<div class="allergens"><span class="allergen-label">Allergeni:</span> <span class="allergen-codes">${allergenNames}</span></div>`;
-            }
+            //let allergensHtml = '';
+            //if (product.allergeni && product.allergeni.length > 0) {
+            //    const allergenNames = product.allergeni.map(code => allergenMap[code] || code).join(', ');
+            //    allergensHtml = `<div class="allergens"><span class="allergen-label">Allergeni:</span> <span class="allergen-codes">${allergenNames}</span></div>`;
+            //}
             
             return `
                 <div class="product">
@@ -605,7 +605,7 @@
                         ${priceHtml}
                         ${priceLabel}
                     </div>
-                    ${allergensHtml}
+                    ${product.allergeni}
                 </div>
             `;
         }
