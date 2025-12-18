@@ -381,29 +381,13 @@
     <script>
         const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVCdwqQen7TOE82kG09jdHmlAXD_WlFry69VYLxPzR0PYuSy62SQqpk490oQhv7C7TvwS0Ho-AxfGj/pub?gid=0&single=true&output=csv';
         
-        const allergenMap = {
-            '1': 'Glutine',
-            '2': 'Crostacei',
-            '3': 'Uova',
-            '4': 'Pesce',
-            '5': 'Arachidi',
-            '6': 'Frutta a guscio',
-            '7': 'Latte',
-            '8': 'Sedano',
-            '9': 'Mostarda',
-            '10': 'Sesamo',
-            '11': 'Molluschi',
-            '12': 'Soia',
-            '13': 'Solfiti'
-        };
-        
         const sectionOrder = [
             'Sfizi e gastronomia',
             'Hamburger',
             'Pinse',
             'Dolci',
-            'Bibite',
             'Birre alla spina',
+            'Bibite',
             'Birre in bottiglia'
         ];
         
@@ -478,7 +462,7 @@
                         descrizione: row[descrizioneIdx] || '',
                         prezzoPiccolo: parseFloat(row[prezzoPiccoloIdx]) || 0,
                         prezzoGrande: row[prezzoGrandeIdx] && row[prezzoGrandeIdx].trim() ? parseFloat(row[prezzoGrandeIdx]) : null,
-                        allergeni: row[allergeniIdx] && row[allergeniIdx].trim() ? String(row[allergeniIdx]).split(',').map(a => a.trim()) : [],
+                        allergeni: row[allergeni] || '',
                         veg: parseInt(row[vegIdx]) === 1,
                         vegan: parseInt(row[veganIdx]) === 1,
                         spicy: parseInt(row[piccianteIdx]) === 1,
