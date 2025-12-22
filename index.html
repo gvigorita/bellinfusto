@@ -151,17 +151,11 @@
               }
         
          .section-desc {
-              font-size: 0.9em;
+              font-size: 0.85em;
               color: #D4AF37;
-              margin-bottom: 15px;
-              padding-bottom: 15px;
+              margin-bottom: 5px;
+              padding-bottom: 5px;
             }
-
-        .section-desc.hidden {
-                max-height: 0;
-                opacity: 0;
-                pointer-events: none;
-              }
 
          .products-grid {
                 max-height: 10000px;
@@ -535,7 +529,7 @@
                 
                 html += `<div class="section">`;
                 html += `<h2 class="section-title">${getSectionIcon(sectionName)}${sectionName}</h2>`;
-                html += `<p class="section-desc hidden">${getSectionDescription(sectionName)}</p>`;
+                html += `<p class="section-desc">${getSectionDescription(sectionName)}</p>`;
                 
                 html += `<div class="products-grid hidden">`;
                 
@@ -556,9 +550,11 @@
                         
                         // Invece di nextElementSibling (che troverebbe la descrizione), 
                         // cerchiamo la griglia dentro lo stesso contenitore .section
+                        const desc = this.closest('.section').querySelector('.section-desc');
                         const grid = this.closest('.section').querySelector('.products-grid');
                         
                         if (grid) {
+                            desc.classList.toggle('hidden');
                             grid.classList.toggle('hidden');
                         }
                     });
