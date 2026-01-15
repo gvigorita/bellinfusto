@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+,<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -458,6 +458,7 @@
                 const veganIdx = headers.indexOf('Vegan');
                 const piccianteIdx = headers.indexOf('Piccante');
                 const fotoIdx = headers.indexOf('Foto');
+                const visibileIdx = headers.indexOf('Visibile');
                 
                 const sections = {};
                 sectionOrder.forEach(sec => {
@@ -478,7 +479,8 @@
                         veg: parseInt(row[vegIdx]) === 1,
                         vegan: parseInt(row[veganIdx]) === 1,
                         spicy: parseInt(row[piccianteIdx]) === 1,
-                        foto: row[fotoIdx] && row[fotoIdx].trim() ? row[fotoIdx].trim() : null
+                        foto: row[fotoIdx] && row[fotoIdx].trim() ? row[fotoIdx].trim() : null,
+                        visibile: row[visibileIdx] && row[visibileIdx].trim().toLowerCase() === 'true' ? true : false
                     };
                     
                     if (sections[product.sezione]) {
@@ -565,6 +567,7 @@
         //document.querySelectorAll('.products-grid').forEach(grid => grid.classList.add('hidden'));
         
         function renderProduct(product) {
+            if (!product.visibile) return '';
             let priceHtml = `<span class="price-small">€${product.prezzoPiccolo.toFixed(2)}</span>`;
             let priceLabel = '';
             
@@ -584,11 +587,10 @@
                 symbolsHtml += '<span class="symbol spicy" title="Piccante">🌶</span>';
             }
             
-            //let allergensHtml = '';
-            //if (product.allergeni && product.allergeni.length > 0) {
-            //    const allergenNames = product.allergeni.map(code => allergenMap[code] || code).join(', ');
-            //    allergensHtml = `<div class="allergens"><span class="allergen-label">Allergeni:</span> <span class="allergen-codes">${allergenNames}</span></div>`;
-            //}
+            let allergensHtml = '';
+            if (product.allergeni && product.allergeni.length > 0) {
+                allergensHtml = `<div class="allergens"><span class="allergen-label">Allergeni:</span> <span class="allergen-codes">${product.allergeni}</span></div>`;
+            }
             
             return `
                 <div class="product">
@@ -603,7 +605,7 @@
                         ${priceHtml}
                         ${priceLabel}
                     </div>
-                    <div class="allergens"><span class="allergen-label">Allergeni:</span> <span class="allergen-codes">${product.allergeni}</span></div>
+                    ${allergensHtml}
                 </div>
             `;
         }
