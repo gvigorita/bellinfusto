@@ -370,81 +370,82 @@
                 font-size: 1.5em;
             }
         }
+        
+         /* ===== STILE BIRRE - LAVAGNA CON GESSO ===== */
+         .beers-section {
+         background: #2d2d2d;
+         color: #f0e68c;
+         padding: 40px 20px;
+         margin: 60px 0;
+         border-top: 3px solid #D4AF37;
+         border-bottom: 3px solid #D4AF37;
+         }
+        
+         .beers-title {
+         font-size: 1.8em;
+         color: #f0e68c;
+         margin-bottom: 30px;
+         padding-bottom: 15px;
+         border-bottom: 2px solid #f0e68c;
+         text-transform: uppercase;
+         letter-spacing: 3px;
+         font-weight: 700;
+         text-align: center;
+         font-family: 'Segoe UI', sans-serif;
+         }
+        
+         .beers-title::before {
+         content: '🍺 ';
+         margin-right: 10px;
+         }
+        
+         .beers-table {
+         width: 100%;
+         border-collapse: collapse;
+         color: #f0e68c;
+         font-size: 0.95em;
+         }
+        
+         .beers-table thead {
+         border-bottom: 2px solid #f0e68c;
+         }
+        
+         .beers-table th {
+         padding: 15px 10px;
+         text-align: left;
+         font-weight: 700;
+         color: #ffd700;
+         border-bottom: 2px dotted #f0e68c;
+         }
+        
+         .beers-table td {
+         padding: 12px 10px;
+         border-bottom: 1px solid #555;
+         }
+        
+         .beers-table tbody tr:hover {
+         background: rgba(212, 175, 55, 0.1);
+         }
+        
+         .beer-name {
+         font-weight: 600;
+         color: #ffd700;
+         }
+        
+         .beer-abv {
+         color: #f0e68c;
+         font-weight: 500;
+         }
+        
+         .beer-price {
+         color: #90ee90;
+         font-weight: 600;
+         }
+        
     </style>
 </head>
 <body>
     <div class="container">
-        
- /* ===== STILE BIRRE - LAVAGNA CON GESSO ===== */
- .beers-section {
- background: #2d2d2d;
- color: #f0e68c;
- padding: 40px 20px;
- margin: 60px 0;
- border-top: 3px solid #D4AF37;
- border-bottom: 3px solid #D4AF37;
- }
-
- .beers-title {
- font-size: 1.8em;
- color: #f0e68c;
- margin-bottom: 30px;
- padding-bottom: 15px;
- border-bottom: 2px solid #f0e68c;
- text-transform: uppercase;
- letter-spacing: 3px;
- font-weight: 700;
- text-align: center;
- font-family: 'Segoe UI', sans-serif;
- }
-
- .beers-title::before {
- content: '🍺 ';
- margin-right: 10px;
- }
-
- .beers-table {
- width: 100%;
- border-collapse: collapse;
- color: #f0e68c;
- font-size: 0.95em;
- }
-
- .beers-table thead {
- border-bottom: 2px solid #f0e68c;
- }
-
- .beers-table th {
- padding: 15px 10px;
- text-align: left;
- font-weight: 700;
- color: #ffd700;
- border-bottom: 2px dotted #f0e68c;
- }
-
- .beers-table td {
- padding: 12px 10px;
- border-bottom: 1px solid #555;
- }
-
- .beers-table tbody tr:hover {
- background: rgba(212, 175, 55, 0.1);
- }
-
- .beer-name {
- font-weight: 600;
- color: #ffd700;
- }
-
- .beer-abv {
- color: #f0e68c;
- font-weight: 500;
- }
-
- .beer-price {
- color: #90ee90;
- font-weight: 600;
- }
         <h1><img src="https://cdn.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_802/https://www.bellinfusto.it/wp-content/uploads/2016/08/logo_b.png" alt="Bellinfusto" style="height: 150px; vertical-align: middle;"></h1>
         <h2 style="text-align: center; color: #D4AF37; font-size: 1.8em; margin-top: 10px;">Menù</h2>
         <p style="text-align: center; color: #D4AF37; font-size: 1.1em; margin: 15px auto; max-width: 700px; line-height: 1.6;">Pub indipendente nel cuore di Ostuni. Birre artigianali selezionate, hamburger con carne biologica locale, pinse romane a lunga maturazione e fritti fatti in casa. Un'esperienza autentica dove la qualità incontra la passione.</p>
@@ -701,63 +702,63 @@
             `;
         }
         
-        document.addEventListener('DOMContentLoaded', () => { loadMenu(); loadBeers(); });
-
          // Caricamento birre
- const BEERS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVCdwqQen7TOE82kG09jdHmlAXD_WlFry69VYLxPzR0PYuSy62SQqpk490oQhv7C7TvwS0Ho-AxfGj/pub?gid=574839479&single=true&output=csv';
-async function loadBeers() {
- try {
- const cacheBuster = `&t=${new Date().getTime()}`;
- const response = await fetch(BEERS_CSV_URL + cacheBuster);
- 
- if (!response.ok) {
- throw new Error(`Errore HTTP: ${response.status}`);
- }
- 
- const csvText = await response.text();
- const { headers, rows } = parseCSV(csvText);
- 
- if (!rows || rows.length === 0) {
- throw new Error('Nessuna birra trovata');
- }
- 
- const nomeIdx = headers.indexOf('Nome birra');
- const birrificio Idx = headers.indexOf('Birrificio');
- const stileIdx = headers.indexOf('Stile');
- const abvIdx = headers.indexOf('Alcol by Vol.');
- const prezzoPiccolaIdx = headers.indexOf('Prezzo Piccola');
- const misurapiccolaIdx = headers.indexOf('Misura piccola');
- const prezzoMediaIdx = headers.indexOf('Prezzo Media');
- const misuramediaIdx = headers.indexOf('Misura media');
- 
- const tbody = document.getElementById('beers-tbody');
- tbody.innerHTML = '';
- 
- for (let i = 0; i < rows.length; i++) {
- const row = rows[i];
- if (!row[nomeIdx]) continue;
- 
- const prezzoPiccola = parseFloat(row[prezzoPiccolaIdx]) || 0;
- const prezzoMedia = parseFloat(row[prezzoMediaIdx]) || 0;
- 
- const beerRow = `
- <tr>
- <td class="beer-name">${row[nomeIdx] || ''}</td>
- <td>${row[birrificio Idx] || ''}</td>
- <td>${row[stileIdx] || ''}</td>
- <td class="beer-abv">${row[abvIdx] || ''}%</td>
- <td class="beer-price">€${prezzoPiccola.toFixed(2)} (${row[misurapiccolaIdx] || ''})</td>
- <td class="beer-price">€${prezzoMedia.toFixed(2)} (${row[misuramediaIdx] || ''})</td>
- </tr>
- `;
- tbody.innerHTML += beerRow;
- }
- } catch (error) {
- console.error('Errore caricamento birre:', error);
- const tbody = document.getElementById('beers-tbody');
- tbody.innerHTML = '<tr><td colspan="6" style="color: #ff6b6b; text-align: center;">Errore nel caricamento delle birre</td></tr>';
- }
- }
+         const BEERS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVCdwqQen7TOE82kG09jdHmlAXD_WlFry69VYLxPzR0PYuSy62SQqpk490oQhv7C7TvwS0Ho-AxfGj/pub?gid=574839479&single=true&output=csv';
+            async function loadBeers() {
+             try {
+             const cacheBuster = `&t=${new Date().getTime()}`;
+             const response = await fetch(BEERS_CSV_URL + cacheBuster);
+             
+             if (!response.ok) {
+             throw new Error(`Errore HTTP: ${response.status}`);
+             }
+             
+             const csvText = await response.text();
+             const { headers, rows } = parseCSV(csvText);
+             
+             if (!rows || rows.length === 0) {
+             throw new Error('Nessuna birra trovata');
+             }
+             
+             const nomeIdx = headers.indexOf('Nome birra');
+             const birrificioIdx = headers.indexOf('Birrificio');
+             const stileIdx = headers.indexOf('Stile');
+             const abvIdx = headers.indexOf('Alcol by Vol.');
+             const prezzoPiccolaIdx = headers.indexOf('Prezzo Piccola');
+             const misurapiccolaIdx = headers.indexOf('Misura piccola');
+             const prezzoMediaIdx = headers.indexOf('Prezzo Media');
+             const misuramediaIdx = headers.indexOf('Misura media');
+             
+             const tbody = document.getElementById('beers-tbody');
+             tbody.innerHTML = '';
+             
+             for (let i = 0; i < rows.length; i++) {
+                 const row = rows[i];
+                 if (!row[nomeIdx]) continue;
+                 
+                 const prezzoPiccola = parseFloat(row[prezzoPiccolaIdx]) || 0;
+                 const prezzoMedia = parseFloat(row[prezzoMediaIdx]) || 0;
+                 
+                 const beerRow = `
+                 <tr>
+                 <td class="beer-name">${row[nomeIdx] || ''}</td>
+                 <td>${row[birrificioIdx] || ''}</td>
+                 <td>${row[stileIdx] || ''}</td>
+                 <td class="beer-abv">${row[abvIdx] || ''}%</td>
+                 <td class="beer-price">€${prezzoPiccola.toFixed(2)} (${row[misurapiccolaIdx] || ''})</td>
+                 <td class="beer-price">€${prezzoMedia.toFixed(2)} (${row[misuramediaIdx] || ''})</td>
+                 </tr>
+                 `;
+                 tbody.innerHTML += beerRow;
+                 }
+             } catch (error) {
+             console.error('Errore caricamento birre:', error);
+             const tbody = document.getElementById('beers-tbody');
+             tbody.innerHTML = '<tr><td colspan="6" style="color: #ff6b6b; text-align: center;">Errore nel caricamento delle birre</td></tr>';
+         }
+     }
+        
+    document.addEventListener('DOMContentLoaded', () => { loadMenu(); loadBeers(); });
 
     </script>
 </body>
