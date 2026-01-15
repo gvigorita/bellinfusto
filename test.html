@@ -458,7 +458,7 @@
                 const veganIdx = headers.indexOf('Vegan');
                 const piccianteIdx = headers.indexOf('Piccante');
                 const fotoIdx = headers.indexOf('Foto');
-                 const visibileIdx = headers.indexOf('Visibile');
+                const visibileIdx = headers.indexOf('Visibile');
                 
                 const sections = {};
                 sectionOrder.forEach(sec => {
@@ -479,8 +479,8 @@
                         veg: parseInt(row[vegIdx]) === 1,
                         vegan: parseInt(row[veganIdx]) === 1,
                         spicy: parseInt(row[piccianteIdx]) === 1,
-                        foto: row[fotoIdx] && row[fotoIdx].trim() ? row[fotoIdx].trim() : null
-                         visibile: row[visibileIdx] && row[visibileIdx].trim().toLowerCase() === 'true' ? true : false
+                        foto: row[fotoIdx] && row[fotoIdx].trim() ? row[fotoIdx].trim() : null,
+                        visibile: row[visibileIdx] && row[visibileIdx].trim().toLowerCase() === 'true' ? true : false
                     };
                     
                     if (sections[product.sezione]) {
@@ -567,7 +567,7 @@
         //document.querySelectorAll('.products-grid').forEach(grid => grid.classList.add('hidden'));
         
         function renderProduct(product) {
-             if (!product.visibile) return '';
+            if (!product.visibile) return '';
             let priceHtml = `<span class="price-small">€${product.prezzoPiccolo.toFixed(2)}</span>`;
             let priceLabel = '';
             
