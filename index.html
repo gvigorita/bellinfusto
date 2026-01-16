@@ -426,6 +426,27 @@
          .beers-table tbody tr:hover {
          background: rgba(212, 175, 55, 0.1);
          }
+
+        /* Container con scroll orizzontale per mobile */
+        .beerscontainer {
+          width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch; /* Smooth scroll su iOS */
+          margin: 0 -10px; /* Compensa il padding laterale */
+          padding: 0 10px 20px;
+        }
+        
+        @media (max-width: 768px) {
+          .beers-table {
+            min-width: 600px; /* Larghezza minima per evitare compressione eccessiva */
+            font-size: 0.85em; /* Leggermente più piccolo su mobile */
+          }
+          
+          .beers-table th,
+          .beers-table td {
+            padding: 10px 8px; /* Padding ridotto su mobile */
+          }
+        }
         
          .beer-name {
          font-weight: 600;
