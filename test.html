@@ -138,14 +138,14 @@
                 user-select: none;
               }
 
-         .section-title::before {
+         .section-title::before, .section-desc::before {
                 content: '▶ ';
                 transition: transform 0.3s ease;
                 display: inline-block;
                 margin-right: 10px;
               }
 
-         .section-title.active::before {
+         .section-title.active::before, .section-desc.active::before {
                 transform: rotate(90deg);
               }
         
