@@ -138,14 +138,14 @@
                 user-select: none;
               }
 
-         .section-title::before, .section-desc::before {
+         .section-title::before {
                 content: '▶ ';
                 transition: transform 0.3s ease;
                 display: inline-block;
                 margin-right: 10px;
               }
 
-         .section-title.active::before, .section-desc.active::before {
+         .section-title.active::before {
                 transform: rotate(90deg);
               }
         
@@ -642,7 +642,7 @@
             const sectionTitles = document.querySelectorAll('.section-title, .section-desc');
             sectionTitles.forEach(title => {
                 title.addEventListener('click', function() {
-                    this.classList.toggle('active');
+                    this.closest('.section').querySelector('.section-title').classList.toggle('active');
                     
                     // Invece di nextElementSibling (che troverebbe la descrizione), 
                     // cerchiamo la griglia dentro lo stesso contenitore .section
