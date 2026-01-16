@@ -480,6 +480,7 @@
                      <tr>
                      <th>Nome Birra</th>
                      <th>Birrificio</th>
+                     <th></th>
                      <th>Stile</th>
                      <th>ABV</th>
                      <th>30 cl</th>
@@ -702,6 +703,7 @@
              
              const nomeIdx = headers.indexOf('Nome birra');
              const birrificioIdx = headers.indexOf('Birrificio');
+             const regionIdx = headers.indexOf('Provenienza');
              const stileIdx = headers.indexOf('Stile');
              const abvIdx = headers.indexOf('Alcol by Vol.');
              const prezzoPiccolaIdx = headers.indexOf('Prezzo Piccola');
@@ -723,6 +725,7 @@
                  <tr>
                  <td class="beer-name">${row[nomeIdx] || ''}</td>
                  <td>${row[birrificioIdx] || ''}</td>
+                 <td>${row[regionIdx] || ''}</td>
                  <td>${row[stileIdx] || ''}</td>
                  <td class="beer-abv">${row[abvIdx] || ''}%</td>
                  <td class="beer-price">${prezzoPiccola > 0 ? '€' + prezzoPiccola.toFixed(2) : ''}</td>
