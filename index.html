@@ -639,7 +639,7 @@
             document.getElementById('menu').innerHTML = html;
 
            // Aggiungi listener per accordion
-            const sectionTitles = document.querySelectorAll('.section-title');
+            const sectionTitles = document.querySelectorAll('.section-title, .section-desc');
             sectionTitles.forEach(title => {
                 title.addEventListener('click', function() {
                     this.classList.toggle('active');
