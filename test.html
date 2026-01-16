@@ -442,6 +442,110 @@
          font-weight: 600;
          }
         
+        /* ===== LAYOUT COMPATTO MOBILE PER TABELLA BIRRE ===== */
+        @media (max-width: 768px) {
+          .beers-section {
+            padding: 20px 10px;
+          }
+          
+          .beers-title {
+            font-size: 1.4em;
+          }
+          
+          /* Nascondi l'header della tabella su mobile */
+          .beers-table thead {
+            display: none;
+          }
+          
+          /* Trasforma tutti gli elementi in block */
+          .beers-table,
+          .beers-table tbody,
+          .beers-table tr,
+          .beers-table td {
+            display: block;
+            width: 100%;
+          }
+          
+          /* Stile card compatte per ogni birra */
+          .beers-table tr {
+            margin-bottom: 8px;
+            background: rgba(212, 175, 55, 0.15);
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+          }
+          
+          .beers-table td {
+            padding: 0;
+            border: none;
+            font-size: 0.85em;
+            line-height: 1.5;
+          }
+          
+          /* Nome birra - grande e in evidenza */
+          .beer-name {
+            font-size: 1.15em !important;
+            font-weight: 700;
+            color: #ffd700;
+            margin-bottom: 4px;
+            display: block;
+          }
+          
+          /* Birrificio e Stile sulla stessa riga */
+          .beers-table td:nth-child(2) {
+            display: inline;
+            color: #d4c5a0;
+            font-size: 0.8em;
+          }
+          
+          .beers-table td:nth-child(3) {
+            display: inline;
+            color: #d4c5a0;
+            font-size: 0.8em;
+          }
+          
+          .beers-table td:nth-child(3)::before {
+            content: ' - ';
+            color: #c9a961;
+          }
+          
+          /* ABV e Prezzi sulla stessa riga */
+          .beers-table td:nth-child(4),
+          .beers-table td:nth-child(5),
+          .beers-table td:nth-child(6) {
+            display: inline-block;
+            margin-top: 3px;
+          }
+          
+          .beer-abv {
+            color: #f0e68c;
+            font-size: 0.8em;
+            margin-right: 10px;
+          }
+          
+          .beer-price {
+            color: #90ee90;
+            font-weight: 600;
+            font-size: 0.85em;
+            margin-right: 10px;
+          }
+          
+          /* Aggiungi label per le misure dei bicchieri */
+          .beers-table td:nth-child(5)::before {
+            content: '30cl: ';
+            color: #c9a961;
+            font-size: 0.75em;
+            font-weight: normal;
+          }
+          
+          .beers-table td:nth-child(6)::before {
+            content: '40cl: ';
+            color: #c9a961;
+            font-size: 0.75em;
+            font-weight: normal;
+          }
+        }
+
     </style>
 </head>
 <body>
